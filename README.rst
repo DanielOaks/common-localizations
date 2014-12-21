@@ -7,9 +7,7 @@ This is a project to compile a whole bunch of common game translations. The tran
 
 Installing dependencies
 -----------------------
-This is built on `Python3 <https://www.python.org/downloads/>`_, and uses the `Pip <http://pip.readthedocs.org/en/latest/installing.html>`_ extension to install dependencies. Once you have those two installed, run:
-
-.. text::
+This is built on `Python3 <https://www.python.org/downloads/>`_, and uses the `Pip <http://pip.readthedocs.org/en/latest/installing.html>`_ extension to install dependencies. Once you have those two installed, run::
 
     $ pip3 install -r requirements.txt
 
@@ -18,24 +16,20 @@ This will install the dependencies required to build the output files.
 
 Updating source files
 ---------------------
-To update the source file from Google Sheets, run:
-
-.. text::
+To update the source file from Google Sheets, run::
 
     $ ./commonlocal.py update
 
-The source file is put in `source.xlsx`.
+The source file is put in ``source.xlsx``.
 
 
 Generating new output files
 ---------------------------
-To generate the output files, run:
-
-.. text::
+To generate the output files, run::
 
     $ ./commonlocal.py generate
 
-The output files will be generated in `output/`.
+The output files will be generated in ``output/``.
 
 
 License
