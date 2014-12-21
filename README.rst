@@ -1,8 +1,8 @@
 Common Localizations
 ====================
-This is a project to compile a whole bunch of common game translations. The translation work is not done by me – this is just a project to try and take the source spreadsheet and turn it into some output formats.
+This is a project to compile a whole bunch of common game translations. The translation work is not done by me – this is just a project to try and take the source spreadsheet and turn it into some output formats automagically using Python.
 
-**All the translations in this repo are done by the users in the `Love Thread <https://love2d.org/forums/viewtopic.php?f=4&t=78754>`_ and on the `Google spreadsheet <http://goo.gl/fhnw1t>`_, and are under the MIT license.**
+**Note:** All the translations in this repo are done by the users in the `Love Thread <https://love2d.org/forums/viewtopic.php?f=4&t=78754>`_ and on the `Google spreadsheet <http://goo.gl/fhnw1t>`_, and are under the MIT license.
 
 
 Installing dependencies
