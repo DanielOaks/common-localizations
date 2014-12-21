@@ -99,9 +99,9 @@ if __name__ == '__main__':
             translations[sheet_name] = {}
 
             language_rows = []
-            sheet = wb.get_sheet_by_name(name=sheet_name)
+            this_sheet = wb.get_sheet_by_name(name=sheet_name)
 
-            for row_id, row in enumerate(language_sheet.iter_rows()):
+            for row_id, row in enumerate(this_sheet.iter_rows()):
                 # language names
                 if row_id == 0:
                     for cell_id, cell in enumerate(row):
