@@ -116,10 +116,6 @@ if __name__ == '__main__':
                     for cell_id, cell in enumerate(row):
                         if cell_id == 0:  # key
                             key = cell_value(cell).strip()
-                            # consider keys to be only lowercased
-                            # stuff with uppercase keys are likely comments/etc we can ignore
-                            if key.lower() != key:
-                                key = ''
                         else:
                             if key:  # if row is not empty
                                 lang_id = language_rows[cell_id - 1]
