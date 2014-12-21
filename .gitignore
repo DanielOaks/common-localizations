@@ -107,3 +107,7 @@ docs/_build/
 
 # PyBuilder
 target/
+
+
+# Common Localizations
+/canoncal-output

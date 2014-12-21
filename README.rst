@@ -5,6 +5,15 @@ This is a project to compile a whole bunch of common game translations. The tran
 **Note:** All the translations in this repo are done by the users in the `Love Thread <https://love2d.org/forums/viewtopic.php?f=4&t=78754>`_ and on the `Google spreadsheet <http://goo.gl/fhnw1t>`_, and are under the MIT license.
 
 
+Pull Requests
+-------------
+If you are submitting a pull request to this repo, please DO NOT INCLUDE NEWLY-GENERATED ``canonical-output/`` FILES IN YOUR PR.
+
+The ``canonical-output/`` files are included for convenience, and if every pull request includes newly-generated files, there will be many merge conflicts and such when we merge them back into this repo.
+
+I will regenerate new ``canonical-output/`` files when pull requests are merged.
+
+
 Installing dependencies
 -----------------------
 This is built on `Python3 <https://www.python.org/downloads/>`_, and uses the `Pip <http://pip.readthedocs.org/en/latest/installing.html>`_ extension to install dependencies. Once you have those two installed, run::
@@ -20,7 +29,7 @@ To update the source file from Google Sheets, run::
 
     $ ./commonlocal.py update
 
-The source file is put in ``source.xlsx``.
+The source file is put in ``source.xlsx``
 
 
 Generating new output files
@@ -29,7 +38,7 @@ To generate the output files, run::
 
     $ ./commonlocal.py generate
 
-The output files will be generated in ``output/``.
+The output files will be generated in ``output/``
 
 
 License

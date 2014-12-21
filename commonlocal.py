@@ -8,8 +8,11 @@ Creates localization files from the `Common Localization project <http://goo.gl/
 
 Usage:
   commonlocal.py update
-  commonlocal.py generate
+  commonlocal.py generate [options]
   commonlocal.py -h | --help
+
+Options:
+  --output-folder=<string>    Folder to dump output files in [default: output]
 """
 import os
 import shutil
@@ -19,7 +22,6 @@ from docopt import docopt
 source_filename = 'source.xlsx'
 source_url = 'https://docs.google.com/spreadsheets/d/135HgMYcRDt6vnJN0d-xFMEZUeWjVbc61ETf8uVwHERE/export?format=xlsx&id=135HgMYcRDt6vnJN0d-xFMEZUeWjVbc61ETf8uVwHERE'
 source_niceurl = 'http://goo.gl/fhnw1t'
-output_folder = 'output'
 
 language_sheet_name = 'lang'
 
@@ -54,6 +56,7 @@ if __name__ == '__main__':
         wb = load_workbook(source_filename)
 
         # wipe output folder
+        output_folder = args['--output-folder']
         if os.path.exists(output_folder):
             shutil.rmtree(output_folder)
         os.makedirs(output_folder)
