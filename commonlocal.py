@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
             # information
             else:
-                key = ''
+                key = None
                 for cell_id, cell in enumerate(row):
                     if cell_id == 0:  # key
                         key = cell_value(cell).strip()
@@ -92,7 +92,7 @@ if __name__ == '__main__':
                             value = cell_value(cell).strip()
                             languages[lang_id][key] = value
 
-        # other translation info
+        # actual translation tables
         translations = {}
 
         for sheet_name in wb.get_sheet_names():
@@ -107,20 +107,22 @@ if __name__ == '__main__':
                     for cell_id, cell in enumerate(row):
                         if cell_id:  # skip first col here, is useless
                             lang_id = cell_value(cell).strip()
-                            language_rows.append(lang_id)
-                            translations[sheet_name][lang_id] = {}
+                            if lang_id:
+                                language_rows.append(lang_id)
+                                translations[sheet_name][lang_id] = {}
 
                 # information
                 else:
-                    key = ''
+                    key = None
                     for cell_id, cell in enumerate(row):
                         if cell_id == 0:  # key
                             key = cell_value(cell).strip()
                         else:
                             if key:  # if row is not empty
-                                lang_id = language_rows[cell_id - 1]
-                                value = cell_value(cell).strip()
-                                translations[sheet_name][lang_id][key] = value
+                                if cell_id <= len(language_rows):
+                                    lang_id = language_rows[cell_id - 1]
+                                    value = cell_value(cell).strip()
+                                    translations[sheet_name][lang_id][key] = value
 
         # ini
         print('Generating .ini files')
