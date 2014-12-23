@@ -34,7 +34,7 @@ end
 
 function CommonLocal:get(section, key)
     line = self.strings[section][key]
-    if line == '' then
+    if line == '' or line == nil then
         return 'Translation Not Found'
     else
         return line
