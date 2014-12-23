@@ -811,7 +811,12 @@ end
 function CommonLocal:get(section, key, ...)
     line = self.strings[section][key]
     if line == '' or line == nil then
-        return 'Missing translation'
+        line = self.strings['lang']['error.missing']
+        if line == '' or line == nil then
+            return 'Missing translation'
+        else
+            return line
+        end
     else
         local arg={...}
         return line:gsub('$(%d+)', function(i) return arg[tonumber(i)] end)
