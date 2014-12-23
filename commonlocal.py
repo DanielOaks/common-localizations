@@ -183,7 +183,7 @@ if __name__ == '__main__':
         for lang_id in language_rows:
             lua_filename = os.path.join(lua_language_folder, '{}.lua'.format(lang_id))
 
-            lang_name = languages[lang_id]['nameen']
+            lang_name = languages[lang_id]['name.english']
             lang_dict = {}
 
             for sheet_name in sorted(translations):
