@@ -59,7 +59,7 @@ function love.draw()
     line = trans:get('gameplay', 'jump')
     love.graphics.print(line, 5, 20 + fontHeight * 4)
 
-    line = trans:get('territory', 'HN')
+    line = trans:get('audio', 'audio.cardx', 'RealTrack AudioCool 143')
     love.graphics.print(line, 5, 20 + fontHeight * 5)
 
     line = trans:get('territory', 'AU')
