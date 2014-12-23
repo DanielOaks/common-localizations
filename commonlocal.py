@@ -22,6 +22,7 @@ from docopt import docopt
 source_filename = 'source.xlsx'
 source_url = 'https://docs.google.com/spreadsheets/d/135HgMYcRDt6vnJN0d-xFMEZUeWjVbc61ETf8uVwHERE/export?format=xlsx&id=135HgMYcRDt6vnJN0d-xFMEZUeWjVbc61ETf8uVwHERE'
 source_niceurl = 'http://goo.gl/fhnw1t'
+base_data_folder = 'base'
 
 language_sheet_name = 'lang'
 
@@ -77,20 +78,22 @@ if __name__ == '__main__':
                 for cell_id, cell in enumerate(row):
                     if cell_id:  # skip first col here, is useless
                         lang_id = cell_value(cell).strip()
-                        language_rows.append(lang_id)
-                        languages[lang_id] = {}
+                        if lang_id:
+                            language_rows.append(lang_id)
+                            languages[lang_id] = {}
 
             # information
             else:
                 key = None
                 for cell_id, cell in enumerate(row):
                     if cell_id == 0:  # key
-                        key = cell_value(cell).strip()
+                        key = cell_value(cell).strip().replace(' ', '').replace(':', '')
                     else:
                         if key:  # if row is not empty
-                            lang_id = language_rows[cell_id - 1]
-                            value = cell_value(cell).strip()
-                            languages[lang_id][key] = value
+                            if cell_id <= len(language_rows):
+                                lang_id = language_rows[cell_id - 1]
+                                value = cell_value(cell).strip()
+                                languages[lang_id][key] = value
 
         # actual translation tables
         translations = {}
@@ -116,7 +119,7 @@ if __name__ == '__main__':
                     key = None
                     for cell_id, cell in enumerate(row):
                         if cell_id == 0:  # key
-                            key = cell_value(cell).strip()
+                            key = cell_value(cell).strip().replace(' ', '').replace(':', '')
                         else:
                             if key:  # if row is not empty
                                 if cell_id <= len(language_rows):
@@ -144,3 +147,53 @@ if __name__ == '__main__':
                     for key in sorted(translations[sheet_name][lang_id]):
                         value = translations[sheet_name][lang_id][key]
                         ini_file.write('{}={}\n'.format(key, value))
+
+        # lua
+        print('Generating lua library')
+        lua_folder = os.path.join(output_folder, 'lua')
+        os.makedirs(lua_folder)
+
+        lua_language_folder = os.path.join(output_folder, 'lua', 'languages')
+        os.makedirs(lua_language_folder)
+
+        lua_data_folder = os.path.join(base_data_folder, 'lua')
+
+        # overall lua file
+        lua_data_library_filename = os.path.join(lua_data_folder, 'commonlocal.lua')
+        lua_data_library = open(lua_data_library_filename, 'r').read()
+        nice_language_list = str(language_rows).replace('[', '{').replace(']', '}')
+        lua_data_library = lua_data_library.replace('%%SUPPORTED_LANGUAGES%%', nice_language_list)
+
+        # generate language info
+        nice_language_info = 'base_language_info = {}\n'
+        for lang_id in sorted(language_rows):
+            nice_language_info += 'base_language_info["{lang_id}"] = {{}}\n'.format(lang_id=lang_id)
+            for key in sorted(languages[lang_id]):
+                nice_language_info += 'base_language_info["{lang_id}"]["{key}"] = {value}\n'.format(lang_id=lang_id, key=key, value=str([languages[lang_id][key]])[1:-1])
+        lua_data_library = lua_data_library.replace('%%BASE_LANGUAGE_INFO%%', nice_language_info)
+
+        lua_filename = os.path.join(lua_folder, 'commonlocal.lua')
+        with open(lua_filename, 'w') as lua_file:
+            lua_file.write(lua_data_library)
+
+        # specific language files
+        lua_data_format_filename = os.path.join(lua_data_folder, 'lang_format.lua')
+        lua_data_format = open(lua_data_format_filename, 'r').read()
+
+        for lang_id in language_rows:
+            lua_filename = os.path.join(lua_language_folder, '{}.lua'.format(lang_id))
+
+            lang_name = languages[lang_id]['nameen']
+            lang_dict = {}
+
+            for sheet_name in sorted(translations):
+                lang_dict[sheet_name] = translations[sheet_name].get(lang_id, {})
+
+            with open(lua_filename, 'w') as lua_file:
+                nice_lang_dict = 'lang_dict = {}'
+                for section in sorted(lang_dict):
+                    nice_lang_dict += 'lang_dict["{section}"] = {{}}\n'.format(section=section)
+                    for key in sorted(lang_dict[section]):
+                        value = lang_dict[section][key].replace('\\', '\\\\').replace('"', '\\"')
+                        nice_lang_dict += 'lang_dict["{section}"]["{key}"] = "{value}"\n'.format(section=section, key=key, value=value)
+                lua_file.write(lua_data_format.format(lang_name=lang_name, lang_dict=nice_lang_dict))
