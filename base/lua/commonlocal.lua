@@ -32,24 +32,27 @@ function CommonLocal:setLanguage(language)
     self.strings = require(folderLanguages .. self.currentLanguage)
 end
 
-function CommonLocal:get(section, key, arg)
+function CommonLocal:get(section, key, ...)
     line = self.strings[section][key]
     if line == '' or line == nil then
         return 'Translation Not Found'
     else
-        for _, replacement in ipairs(arg) do
-            line.gsub('$' .. (_ + 1), replacement)
+        if ... ~= nil then
+            local arg={...}
+            for _, replacement in ipairs(arg) do
+                line = line:gsub('$' .. _, replacement)
+            end
         end
         return line
     end
-    -- if self.strings[section] ~= nil then
-    --     if self.strings[section][key] ~= nil then
-    --         return self.strings[section][key]
-    --     else
-    --         return ''
-    -- else
-    --     return ''
-    -- end
 end
+-- if self.strings[section] ~= nil then
+--     if self.strings[section][key] ~= nil then
+--         return self.strings[section][key]
+--     else
+--         return ''
+-- else
+--     return ''
+-- end
 
 return CommonLocal
