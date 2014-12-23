@@ -44,13 +44,13 @@ end
 function love.draw()
     fontHeight = 40
 
-    line = trans:get('lang', 'nameen')
+    line = trans:get('lang', 'name.english')
     love.graphics.print(line, 20, 5)
 
-    line = trans:get('menu', 'levelsd')
+    line = trans:get('menu', 'level.select')
     love.graphics.print(line, 5, 20 + fontHeight)
 
-    line = trans:get('score', 'hiscorece3')
+    line = trans:get('score', 'hiscore')
     love.graphics.print(line, 5, 20 + fontHeight * 2)
 
     line = trans:get('astro', 'Peg')
@@ -59,7 +59,7 @@ function love.draw()
     line = trans:get('gameplay', 'jump')
     love.graphics.print(line, 5, 20 + fontHeight * 4)
 
-    line = trans:get('audio', 'audio.cardx', 'RealTrack AudioCool 143')
+    line = trans:get('build', 'version', '523')
     love.graphics.print(line, 5, 20 + fontHeight * 5)
 
     line = trans:get('territory', 'AU')
