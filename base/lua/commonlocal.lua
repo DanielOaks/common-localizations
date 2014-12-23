@@ -33,7 +33,12 @@ function CommonLocal:setLanguage(language)
 end
 
 function CommonLocal:get(section, key)
-    return self.strings[section][key]
+    line = self.strings[section][key]
+    if line == '' then
+        return 'Translation Not Found'
+    else
+        return line
+    end
     -- if self.strings[section] ~= nil then
     --     if self.strings[section][key] ~= nil then
     --         return self.strings[section][key]
