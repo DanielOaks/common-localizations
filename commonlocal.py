@@ -190,7 +190,7 @@ if __name__ == '__main__':
                 lang_dict[sheet_name] = translations[sheet_name].get(lang_id, {})
 
             with open(lua_filename, 'w') as lua_file:
-                nice_lang_dict = 'lang_dict = {}'
+                nice_lang_dict = 'lang_dict = {}\n'
                 for section in sorted(lang_dict):
                     nice_lang_dict += 'lang_dict["{section}"] = {{}}\n'.format(section=section)
                     for key in sorted(lang_dict[section]):

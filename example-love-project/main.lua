@@ -5,6 +5,12 @@ CommonLocal = require('commonlocal.commonlocal')
 trans = CommonLocal.new('en')
 
 -- below function from http://stackoverflow.com/questions/656199/search-for-an-item-in-a-lua-list
+function Set (list)
+  local set = {}
+  for _, l in ipairs(list) do set[l] = true end
+  return set
+end
+-- below function from http://stackoverflow.com/questions/656199/search-for-an-item-in-a-lua-list
 function table.find(f, l) -- find element v of l satisfying f(v)
     for _, v in ipairs(l) do
         if f == v then
@@ -32,7 +38,7 @@ end
 
 function love.load()
     currentLanguage = table.find('en', trans.languageList)
-    love.graphics.setNewFont('unifont-7.0.06.ttf', 30)
+    setFont()
 end
 
 function love.draw()
@@ -59,6 +65,9 @@ function love.draw()
     line = trans:get('territory', 'AU')
     love.graphics.print(line, 5, 20 + fontHeight * 6)
 
+    line = trans:get('astro', 'Equ')
+    love.graphics.print(line, 5, 20 + fontHeight * 7)
+
     love.graphics.print('Left arrow for previous language', 5, love.graphics.getHeight() - 5 - fontHeight * 2)
     love.graphics.print('Right arrow for next language', 5, love.graphics.getHeight() - 5 - fontHeight)
 end
@@ -72,6 +81,7 @@ function love.keypressed(key, isrepeat)
         end
         local newLang = tableFindById(trans.languageList, currentLanguage)
         trans:setLanguage(newLang)
+        setFont()
     elseif key == 'right' then
         -- next language
         currentLanguage = currentLanguage + 1
@@ -80,7 +90,20 @@ function love.keypressed(key, isrepeat)
         end
         local newLang = tableFindById(trans.languageList, currentLanguage)
         trans:setLanguage(newLang)
+        setFont()
     else
         print(key, isrepeat)
+    end
+end
+
+function setFont()
+    currentLangString = tableFindById(trans.languageList, currentLanguage)
+    local NotoFonts = Set {'en', 'ja', 'zh', 'ko', 'ru', 'sv', 'pt_br', 'pt', 'nl', 'it', 'de', 'la', 'hu', 'fr', 'fi', 'es'}
+
+    if NotoFonts[currentLangString] then
+        love.graphics.setNewFont('fonts/NotoSansCJK-Regular.ttc', 30)
+    
+    else
+        love.graphics.setNewFont('fonts/unifont-7.0.06.ttf', 30)
     end
 end
