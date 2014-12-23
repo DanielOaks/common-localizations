@@ -35,7 +35,7 @@ end
 function CommonLocal:get(section, key, ...)
     line = self.strings[section][key]
     if line == '' or line == nil then
-        return 'Translation Not Found'
+        return 'Missing translation'
     else
         local arg={...}
         return line:gsub('$(%d+)', function(i) return arg[tonumber(i)] end)
