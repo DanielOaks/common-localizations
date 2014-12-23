@@ -37,13 +37,8 @@ function CommonLocal:get(section, key, ...)
     if line == '' or line == nil then
         return 'Translation Not Found'
     else
-        if ... ~= nil then
-            local arg={...}
-            for _, replacement in ipairs(arg) do
-                line = line:gsub('$' .. _, replacement)
-            end
-        end
-        return line
+        local arg={...}
+        return line:gsub('$(%d+)', function(i) return arg[tonumber(i)] end)
     end
 end
 -- if self.strings[section] ~= nil then
