@@ -112,3 +112,4 @@ target/
 # Common Localizations
 /canoncal-output
 /example-love-project/commonlocal
+/example-love-project/*.love

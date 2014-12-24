@@ -2,6 +2,7 @@
 -- written by Daniel Oaks <daniel@danieloaks.net>, released into public domain
 
 CommonLocal = require('commonlocal.commonlocal')
+FbFonts = require('fbfonts.fbfonts')
 trans = CommonLocal.new('en')
 
 -- below function from http://stackoverflow.com/questions/656199/search-for-an-item-in-a-lua-list
@@ -37,73 +38,64 @@ function tableFindById(t, id)
 end
 
 function love.load()
-    currentLanguage = table.find('en', trans.languageList)
-    setFont()
+    currentLangId = table.find('en', trans.languageList)
+
+    fonts = {'fonts/NotoSans-Regular.ttf', 'fonts/NotoSansCJK-Regular.ttc',
+             'fonts/NotoNaskhArabic-Regular.ttf', 'fonts/NotoSansHebrew-Regular.ttf',
+             'fonts/NotoSansDevanagari-Regular.ttf', 'fonts/NotoSansThai-Regular.ttf'}
+
+    FbFonts.setNewFonts(fonts, 30)
 end
 
 function love.draw()
     fontHeight = 40
 
     line = trans:get('lang', 'name.english')
-    love.graphics.print(line, 20, 5)
+    FbFonts.print(line, 20, 5)
 
     line = trans:get('menu', 'level.select')
-    love.graphics.print(line, 5, 20 + fontHeight)
+    FbFonts.print(line, 5, 20 + fontHeight)
 
     line = trans:get('score', 'hiscore')
-    love.graphics.print(line, 5, 20 + fontHeight * 2)
+    FbFonts.print(line, 5, 20 + fontHeight * 2)
 
     line = trans:get('astro', 'Peg')
-    love.graphics.print(line, 5, 20 + fontHeight * 3)
+    FbFonts.print(line, 5, 20 + fontHeight * 3)
 
     line = trans:get('gameplay', 'jump')
-    love.graphics.print(line, 5, 20 + fontHeight * 4)
+    FbFonts.print(line, 5, 20 + fontHeight * 4)
 
     line = trans:get('build', 'version', '523')
-    love.graphics.print(line, 5, 20 + fontHeight * 5)
+    FbFonts.print(line, 5, 20 + fontHeight * 5)
 
     line = trans:get('territory', 'AU')
-    love.graphics.print(line, 5, 20 + fontHeight * 6)
+    FbFonts.print(line, 5, 20 + fontHeight * 6)
 
     line = trans:get('astro', 'Equ')
-    love.graphics.print(line, 5, 20 + fontHeight * 7)
+    FbFonts.print(line, 5, 20 + fontHeight * 7)
 
-    love.graphics.print('Left arrow for previous language', 5, love.graphics.getHeight() - 5 - fontHeight * 2)
-    love.graphics.print('Right arrow for next language', 5, love.graphics.getHeight() - 5 - fontHeight)
+    FbFonts.print('Left arrow for previous language', 5, love.graphics.getHeight() - 5 - fontHeight * 2)
+    FbFonts.print('Right arrow for next language', 5, love.graphics.getHeight() - 5 - fontHeight)
 end
 
 function love.keypressed(key, isrepeat)
     if key == 'left' then
         -- previous language
-        currentLanguage = currentLanguage - 1
-        if currentLanguage < 1 then
-            currentLanguage = tablelength(trans.languageList)
+        currentLangId = currentLangId - 1
+        if currentLangId < 1 then
+            currentLangId = tablelength(trans.languageList)
         end
-        local newLang = tableFindById(trans.languageList, currentLanguage)
-        trans:setLanguage(newLang)
-        setFont()
+        local currentLangString = tableFindById(trans.languageList, currentLangId)
+        trans:setLanguage(currentLangString)
     elseif key == 'right' then
         -- next language
-        currentLanguage = currentLanguage + 1
-        if currentLanguage > tablelength(trans.languageList) then
-            currentLanguage = 1
+        currentLangId = currentLangId + 1
+        if currentLangId > tablelength(trans.languageList) then
+            currentLangId = 1
         end
-        local newLang = tableFindById(trans.languageList, currentLanguage)
-        trans:setLanguage(newLang)
-        setFont()
+        local currentLangString = tableFindById(trans.languageList, currentLangId)
+        trans:setLanguage(currentLangString)
     else
         print(key, isrepeat)
-    end
-end
-
-function setFont()
-    currentLangString = tableFindById(trans.languageList, currentLanguage)
-    local NotoFonts = Set {'en', 'ja', 'zh', 'ko', 'ru', 'sv', 'pt_br', 'pt', 'nl', 'it', 'de', 'la', 'hu', 'fr', 'fi', 'es'}
-
-    if NotoFonts[currentLangString] then
-        love.graphics.setNewFont('fonts/NotoSansCJK-Regular.ttc', 30)
-    
-    else
-        love.graphics.setNewFont('fonts/unifont-7.0.06.ttf', 30)
     end
 end
