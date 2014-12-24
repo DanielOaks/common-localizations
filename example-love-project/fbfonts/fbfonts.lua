@@ -24,19 +24,24 @@ function FbFonts.setNewFonts(fontList, fontSize)
 end
 
 
-function FbFonts.print(text, x, y)
+function FbFonts.setRightFontForString(text)
     for i, font in ipairs(currentFonts) do
         if currentFonts[i]:hasGlyphs(text) then
+            -- found an appropriate font!
             love.graphics.setFont(currentFonts[i])
-            love.graphics.print(text, x, y)
             return
         end
     end
     -- failed to find an appropriate font
+    -- just use our default and exit
     love.graphics.setFont(currentFonts[1])
-    love.graphics.print(text, x, y)
-
     print('** Failed to find font for text: ' .. text)
+end
+
+
+function FbFonts.print(text, x, y)
+    FbFonts.setRightFontForString(text)
+    love.graphics.print(text, x, y)
 end
 
 
