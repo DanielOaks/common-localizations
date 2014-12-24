@@ -43,6 +43,6 @@ The output files will be generated in ``output/``
 
 License
 -------
-The code in this repo is released into the public domain.
+The code in this repo is written by Daniel Oaks and is released into the public domain.
 
 The translations are **not done by me**. They are licensed under the MIT license as detailed in the `Google spreadsheet <http://goo.gl/fhnw1t>`_ and the `Love Thread <https://love2d.org/forums/viewtopic.php?f=4&t=78754>`_.
