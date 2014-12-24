@@ -10,20 +10,33 @@ FbFonts.__index = FbFonts
 local folderOfThisFile = (...):match('(.-)[^%.]+$')
 local fsFolderOfThisFile = folderOfThisFile:gsub('%.', '/')
 
--- defaults
+
+-- font creation and setting
 fontSize = 12
 currentFonts = {}
 
-
-function FbFonts.setNewFonts(fontList, fontSize)
-    fontSize = fontSize or 12
-    currentFonts = {}
-    for i, filename in ipairs(fontList) do
-        table.insert(currentFonts, love.graphics.newFont(filename, fontSize))
+function FbFonts.newFonts(newFontList, newFontSize)
+    local newFontSize = newFontSize or 12
+    local newFonts = {}
+    for i, filename in ipairs(newFontList) do
+        table.insert(newFonts, love.graphics.newFont(filename, newFontSize))
     end
+    return newFonts
 end
 
 
+function FbFonts.setFonts(newFontList)
+    currentFonts = newFontList
+end
+
+
+function FbFonts.setNewFonts(newFontList, newFontSize)
+    local fonts = FbFonts.newFonts(newFontList, newFontSize)
+    FbFonts.setFonts(fonts)
+end
+
+
+-- drawing functions
 function FbFonts.setRightFontForString(text)
     for i, font in ipairs(currentFonts) do
         if currentFonts[i]:hasGlyphs(text) then
