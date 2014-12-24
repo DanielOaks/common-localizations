@@ -42,7 +42,8 @@ function love.load()
 
     fonts = {'fonts/NotoSans-Regular.ttf', 'fonts/NotoSansCJK-Regular.ttc',
              'fonts/NotoNaskhArabic-Regular.ttf', 'fonts/NotoSansHebrew-Regular.ttf',
-             'fonts/NotoSansDevanagari-Regular.ttf', 'fonts/NotoSansThai-Regular.ttf'}
+             'fonts/NotoSansDevanagari-Regular.ttf', 'fonts/NotoSansThai-Regular.ttf',
+             'fonts/unifont-7.0.06.ttf'}
 
     FbFonts.setNewFonts(fonts, 30)
 end
