@@ -52,10 +52,15 @@ function FbFonts.setRightFontForString(text)
 end
 
 
-function FbFonts.print(text, x, y)
+function FbFonts.print(text, x, y, r, sx, sy, ox, oy, kx, ky)
     FbFonts.setRightFontForString(text)
-    love.graphics.print(text, x, y)
+    love.graphics.print(text, x, y, r, sx, sy, ox, oy, kx, ky)
 end
 
+
+function FbFonts.printf(text, x, y, limit, align, r, sx, sy, ox, oy, kx, ky)
+    FbFonts.setRightFontForString(text)
+    love.graphics.printf(text, x, y, limit, align, r, sx, sy, ox, oy, kx, ky)
+end
 
 return FbFonts
