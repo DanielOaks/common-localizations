@@ -2,7 +2,7 @@ FallbackFonts
 =============
 This library aims to make it super simple to define and use fallback fonts when printing and drawing text. It only works on an **single-line basis** right now, which means no having two languages in a single string or it'll skip both of those language-specific fonts and go to your fallback!
 
-*FbFonts* aims to mostly replicate the standard Love library in terms of functions, to make it simple to swap in and just find-replace standard library functions with our replacements. In the future, we would like to hook the standard library functions instead if we can, to simplify things.
+*FbFonts* aims to mostly replicate the standard Love library in terms of functions, to make it simple to swap in and just find-replace standard library functions with our replacements. In the future, it may be easier to hook into the standard library functions instead.
 
 
 FbFonts.setNewFonts(filenames, size)
