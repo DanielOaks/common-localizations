@@ -110,6 +110,6 @@ target/
 
 
 # Common Localizations
-/canoncal-output
+/output
 /example-love-project/commonlocal
 /example-love-project/*.love
