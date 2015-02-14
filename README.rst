@@ -41,6 +41,17 @@ To generate the output files, run::
 The output files will be generated in ``output/``
 
 
+Example project
+---------------
+Under `example-love-project`, there is an example project to show off how this library can be used.
+
+To use it, copy the `canonical-output/lua` folder and put it in `example-love-project`, then rename it to `commonlocal`.
+
+Here's how you would do it via the terminal::
+
+    $ cp -r canonical-output/lua example-love-project/commonlocal
+
+
 License
 -------
 The code in this repo is written by Daniel Oaks and is released into the public domain.
