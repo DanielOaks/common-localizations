@@ -1,6 +1,7 @@
 -- Common Localizations - Latin
 -- Localizations are licensed under the MIT License, from http://goo.gl/fhnw1t
 lang_dict = {}
+lang_dict["Sheet10"] = {}
 lang_dict["astro"] = {}
 lang_dict["astro"]["And"] = "Andromeda"
 lang_dict["astro"]["Ant"] = "Antlia"

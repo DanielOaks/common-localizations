@@ -1,6 +1,7 @@
 -- Common Localizations - Portuguese
 -- Localizations are licensed under the MIT License, from http://goo.gl/fhnw1t
 lang_dict = {}
+lang_dict["Sheet10"] = {}
 lang_dict["astro"] = {}
 lang_dict["astro"]["And"] = "Princesa"
 lang_dict["astro"]["Ant"] = "Máquina pneumática, bomba de ar"

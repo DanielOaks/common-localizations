@@ -1,6 +1,7 @@
 -- Common Localizations - Korean
 -- Localizations are licensed under the MIT License, from http://goo.gl/fhnw1t
 lang_dict = {}
+lang_dict["Sheet10"] = {}
 lang_dict["astro"] = {}
 lang_dict["astro"]["And"] = "안드로메다자리"
 lang_dict["astro"]["Ant"] = "공기펌프자리"

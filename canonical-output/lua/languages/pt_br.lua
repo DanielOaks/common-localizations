@@ -1,6 +1,7 @@
 -- Common Localizations - Brazilian Portuguese
 -- Localizations are licensed under the MIT License, from http://goo.gl/fhnw1t
 lang_dict = {}
+lang_dict["Sheet10"] = {}
 lang_dict["astro"] = {}
 lang_dict["astro"]["And"] = "Andrômeda"
 lang_dict["astro"]["Ant"] = "Máquina Pneumática"
@@ -823,11 +824,11 @@ lang_dict["lang"]["script"] = "Latn"
 lang_dict["lang"]["script.cased"] = "True"
 lang_dict["lang"]["script.linebreak"] = "False"
 lang_dict["lang"]["script.rtl"] = "False"
-lang_dict["lang"]["stats"] = ""
+lang_dict["lang"]["stats"] = "Estatísticas de linguagem"
 lang_dict["lang"]["stats.pinternet"] = "4.0"
 lang_dict["lang"]["stats.pspeakers"] = "3.0"
 lang_dict["lang"]["stats.psteam"] = "0.8"
-lang_dict["lang"]["trans"] = ""
+lang_dict["lang"]["trans"] = "Estatísticas de tradução"
 lang_dict["lang"]["trans.contributors"] = "HugoBDesigner, Wolfael"
 lang_dict["lang"]["trans.pwords"] = ""
 lang_dict["lang"]["trans.updated"] = ""
