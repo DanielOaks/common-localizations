@@ -97,6 +97,7 @@ if __name__ == '__main__':
 
         # actual translation tables
         translations = {}
+        canonical_language_rows = []
 
         for sheet_name in wb.get_sheet_names():
             translations[sheet_name] = {}
@@ -126,6 +127,11 @@ if __name__ == '__main__':
                                     lang_id = language_rows[cell_id - 1]
                                     value = cell_value(cell).strip()
                                     translations[sheet_name][lang_id][key] = value
+
+            if len(language_rows) > len(canonical_language_rows):
+                canonical_language_rows = language_rows
+
+        language_rows = canonical_language_rows
 
         # ini
         print('Generating .ini files')
