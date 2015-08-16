@@ -173,6 +173,9 @@ if __name__ == '__main__':
         # generate language info
         nice_language_info = 'base_language_info = {}\n'
         for lang_id in sorted(language_rows):
+            # skip nonexistent languages
+            if lang_id not in languages:
+                continue
             nice_language_info += 'base_language_info["{lang_id}"] = {{}}\n'.format(lang_id=lang_id)
             for key in sorted(languages[lang_id]):
                 nice_language_info += 'base_language_info["{lang_id}"]["{key}"] = {value}\n'.format(lang_id=lang_id, key=key, value=str([languages[lang_id][key]])[1:-1])
@@ -187,6 +190,9 @@ if __name__ == '__main__':
         lua_data_format = open(lua_data_format_filename, 'r').read()
 
         for lang_id in language_rows:
+            # skip nonexistent languages
+            if lang_id not in languages:
+                continue
             lua_filename = os.path.join(lua_language_folder, '{}.lua'.format(lang_id))
 
             lang_name = languages[lang_id]['name.english']
