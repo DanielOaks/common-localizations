@@ -14,8 +14,10 @@ Usage:
 Options:
   --output-folder=<string>    Folder to dump output files in [default: output]
 """
+import json
 import os
 import shutil
+
 from docopt import docopt
 
 # configuration
@@ -34,6 +36,10 @@ def cell_value(cell):
         return ''
     else:
         return str(value)
+
+def escape(orig):
+    """Because Lua hates unescaped backslashes."""
+    return '"{}"'.format(orig.replace('\\', '\\\\').replace('"', '\\"'))
 
 # doing stuff
 if __name__ == '__main__':
@@ -178,7 +184,7 @@ if __name__ == '__main__':
                 continue
             nice_language_info += 'base_language_info["{lang_id}"] = {{}}\n'.format(lang_id=lang_id)
             for key in sorted(languages[lang_id]):
-                nice_language_info += 'base_language_info["{lang_id}"]["{key}"] = {value}\n'.format(lang_id=lang_id, key=key, value=str([languages[lang_id][key]])[1:-1])
+                nice_language_info += 'base_language_info["{lang_id}"][{key}] = {value}\n'.format(lang_id=lang_id, key=escape(key), value=escape(languages[lang_id][key]))
         lua_data_library = lua_data_library.replace('%%BASE_LANGUAGE_INFO%%', nice_language_info)
 
         lua_filename = os.path.join(lua_folder, 'commonlocal.lua')
@@ -204,8 +210,8 @@ if __name__ == '__main__':
             with open(lua_filename, 'w') as lua_file:
                 nice_lang_dict = 'lang_dict = {}\n'
                 for section in sorted(lang_dict):
-                    nice_lang_dict += 'lang_dict["{section}"] = {{}}\n'.format(section=section)
+                    nice_lang_dict += 'lang_dict[{section}] = {{}}\n'.format(section=escape(section))
                     for key in sorted(lang_dict[section]):
-                        value = lang_dict[section][key].replace('\\', '\\\\').replace('"', '\\"')
-                        nice_lang_dict += 'lang_dict["{section}"]["{key}"] = "{value}"\n'.format(section=section, key=key, value=value)
+                        value = lang_dict[section][key]
+                        nice_lang_dict += 'lang_dict[{section}][{key}] = {value}\n'.format(section=escape(section), key=escape(key), value=escape(value))
                 lua_file.write(lua_data_format.format(lang_name=lang_name, lang_dict=nice_lang_dict))

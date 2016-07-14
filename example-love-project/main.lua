@@ -66,10 +66,10 @@ function love.draw()
     line = trans:get('gameplay', 'jump')
     FbFonts.print(line, 5, 20 + fontHeight * 4)
 
-    line = trans:get('build', 'version', '523')
+    line = trans:get('app', 'version', '523')
     FbFonts.print(line, 5, 20 + fontHeight * 5)
 
-    line = trans:get('territory', 'AU')
+    line = trans:get('sayings', 'clock')
     FbFonts.print(line, 5, 20 + fontHeight * 6)
 
     line = trans:get('astro', 'Equ')
